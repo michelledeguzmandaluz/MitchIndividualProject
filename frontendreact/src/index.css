@@ -1,0 +1,371 @@
+@import "tailwindcss";
+
+/* RESET */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", system-ui, sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #fff1f7, #ffe4ec);
+  color: #374151;
+}
+
+/* LINKS */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* CARD */
+.card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 1.5rem;
+  box-shadow: 0 12px 30px rgba(236, 72, 153, 0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 45px rgba(236, 72, 153, 0.25);
+}
+
+/* HEADER */
+header {
+  margin: 1rem;
+  padding: 1rem 1.5rem;
+  border-radius: 24px;
+  background: linear-gradient(45deg, #ec4899, #f472b6);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 15px 40px rgba(236, 72, 153, 0.35);
+}
+
+/* LOGO */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-badge {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: linear-gradient(45deg, #fff, #fde2f0);
+  color: #ec4899;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* NAV */
+nav a {
+  padding: 0.45rem 1rem;
+  border-radius: 999px;
+  font-weight: 600;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+nav a:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.05);
+}
+
+/* FOOTER */
+footer {
+  margin: 1rem;
+  padding: 1rem;
+  border-radius: 20px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.6);
+  color: #9d174d;
+}
+
+/* BUTTON */
+button {
+  background: linear-gradient(45deg, #ec4899, #f472b6);
+  border: none;
+  color: white;
+  padding: 0.6rem 1.3rem;
+  border-radius: 999px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+button:hover {
+  transform: scale(1.08);
+  box-shadow: 0 10px 25px rgba(236, 72, 153, 0.35);
+}
+
+/* INPUTS */
+input[type="text"],
+input[type="file"] {
+  width: 100%;
+  padding: 0.65rem;
+  margin-bottom: 0.75rem;
+  border-radius: 12px;
+  border: 1px solid #f9a8d4;
+}
+
+/* GRID */
+.grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.grid-3 {
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+}
+
+/* PHOTO CARD */
+.photo-card img {
+  width: 100%;
+  height: 210px;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+@import "tailwindcss";
+
+/* =======================
+   RESET
+======================= */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", system-ui, sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #fff1f7, #ffe4ec);
+  color: #374151;
+  min-height: 100vh;
+}
+
+/* =======================
+   GLOBAL
+======================= */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  display: block;
+}
+
+/* =======================
+   FADE ANIMATION
+======================= */
+@keyframes fade {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =======================
+   CARD (GLASSMORPHISM)
+======================= */
+.card {
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(14px) saturate(120%);
+  -webkit-backdrop-filter: blur(14px) saturate(120%);
+  border-radius: 24px;
+  padding: 1.6rem;
+  box-shadow: 0 18px 45px rgba(236, 72, 153, 0.2);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 28px 60px rgba(236, 72, 153, 0.3);
+}
+
+/* =======================
+   HEADER
+======================= */
+header {
+  margin: 1rem;
+  padding: 1rem 1.6rem;
+  border-radius: 26px;
+  background: linear-gradient(45deg, #ec4899, #f472b6);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 20px 45px rgba(236, 72, 153, 0.4);
+}
+
+/* LOGO */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-badge {
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  background: linear-gradient(45deg, #fff, #fde2f0);
+  color: #ec4899;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* =======================
+   NAVIGATION
+======================= */
+nav a {
+  padding: 0.5rem 1.1rem;
+  border-radius: 999px;
+  font-weight: 600;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+
+nav a:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.07);
+}
+
+/* ACTIVE NAV (optional class) */
+nav a.active {
+  background: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.35);
+}
+
+/* =======================
+   BUTTON
+======================= */
+button {
+  background: linear-gradient(45deg, #ec4899, #f472b6);
+  border: none;
+  color: white;
+  padding: 0.65rem 1.4rem;
+  border-radius: 999px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 14px 30px rgba(236, 72, 153, 0.4);
+}
+
+/* =======================
+   INPUTS
+======================= */
+input[type="text"],
+input[type="file"] {
+  width: 100%;
+  padding: 0.7rem;
+  margin-bottom: 0.8rem;
+  border-radius: 14px;
+  border: 1px solid #f9a8d4;
+  background: rgba(255, 255, 255, 0.85);
+}
+
+/* =======================
+   GRID
+======================= */
+.grid {
+  display: grid;
+  gap: 1.6rem;
+}
+
+.grid-3 {
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+}
+
+/* =======================
+   PHOTO CARD
+======================= */
+.photo-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 18px;
+  transition: transform 0.3s ease;
+}
+
+.photo-card img:hover {
+  transform: scale(1.05);
+}
+
+/* =======================
+   SOCIAL ICONS
+======================= */
+.social-icon {
+  width: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.social-icon:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 18px rgba(255, 255, 255, 0.85);
+}
+
+/* =======================
+   PROFILE IMAGE PULSE
+======================= */
+.profile-pic {
+  animation: pulse 2.8s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 20px rgba(236, 72, 153, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(236, 72, 153, 0);
+  }
+}
+
+/* =======================
+   VERIFIED BADGE
+======================= */
+.verified {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 6px;
+  font-size: 0.9rem;
+  color: #ec4899;
+  font-weight: 700;
+}
+
+/* =======================
+   FOOTER
+======================= */
+footer {
+  margin: 1rem;
+  padding: 1.2rem;
+  border-radius: 24px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.65);
+  color: #9d174d;
+  box-shadow: 0 15px 35px rgba(236, 72, 153, 0.25);
+}

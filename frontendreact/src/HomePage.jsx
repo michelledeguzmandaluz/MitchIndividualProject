@@ -1,0 +1,112 @@
+export default function HomePage({ photos }) {
+  // 🌅 MANUAL SUNSET PHOTOS (READ-ONLY)
+    const featuredSunsets = [
+    { id: 1, image: "/sunsets/sunset1.jpg" },
+    { id: 2, image: "/sunsets/sunset2.jpg" },
+    { id: 3, image: "/sunsets/sunset3.jpg" },
+    { id: 4, image: "/sunsets/sunset4.jpg" },
+    { id: 5, image: "/sunsets/sunset5.jpg" },
+    { id: 6, image: "/sunsets/sunset6.jpg" },
+    { id: 7, image: "/sunsets/sunset7.jpg" },
+    { id: 8, image: "/sunsets/sunset8.jpg" },
+    { id: 9, image: "/sunsets/sunset9.jpg" },
+    { id: 10, image: "/sunsets/sunset10.jpg" },
+    { id: 11, image: "/sunsets/sunset11.jpg" },
+    { id: 12, image: "/sunsets/sunset12.jpg" },
+    { id: 13, image: "/sunsets/sunset13.jpg" },
+    { id: 14, image: "/sunsets/sunset14.jpg" }
+
+  ];
+
+  return (
+    <div style={{ padding: "2rem" }}>
+      {/* 🌸 HERO */}
+      <div
+        className="card"
+        style={{
+          textAlign: "center",
+          marginBottom: "2rem",
+          background: "linear-gradient(135deg, #fce7f3, #fbcfe8)"
+        }}
+      >
+        <h1
+          style={{
+            fontSize: "2.5rem",
+            fontWeight: 900,
+            background: "linear-gradient(45deg, #ec4899, #db2777)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            marginBottom: "0.5rem"
+          }}
+        >
+          Capturing Memories: Sunsets
+        </h1>
+
+        <p style={{ fontSize: "1.1rem", color: "#9d174d" }}>
+          Hand-picked sunset moments by Michelle D. Daluz
+        </p>
+      </div>
+
+      {/* 🌅 FEATURED SUNSETS */}
+      <div
+        className="card"
+        style={{
+          marginBottom: "2rem"
+        }}
+      >
+        <h3
+          style={{
+            color: "#ec4899",
+            marginBottom: "1rem",
+            fontWeight: 700
+          }}
+        >
+          Featured Sunsets
+        </h3>
+
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(4, 1fr)",
+            gap: "1.5rem"
+          }}
+        >
+          {featuredSunsets.map(sunset => (
+            <img
+              key={sunset.id}
+              src={sunset.image}
+              alt="Sunset"
+              style={{
+                width: "100%",
+                height: 220,
+                objectFit: "cover",
+                borderRadius: 16,
+                boxShadow: "0 10px 30px rgba(236,72,153,0.3)"
+              }}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* 📊 STATS */}
+      <div
+        className="card"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          gap: "2rem",
+          textAlign: "center"
+        }}
+      >
+        <div>
+          <div style={{ fontSize: "2rem", fontWeight: 800, color: "#ec4899" }}>
+            {photos.length}
+          </div>
+          <div style={{ fontSize: "0.9rem", color: "#9d174d" }}>
+            Community Photos
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
