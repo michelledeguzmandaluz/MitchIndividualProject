@@ -1,6 +1,11 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "./context/AuthContext";
 
-export default function Header({ onNavigate }) {
+export default function Header() {
+  const navigate = useNavigate();
+  const { user, logout } = useAuth();
+
   return (
     <div
       style={{
@@ -13,6 +18,7 @@ export default function Header({ onNavigate }) {
         borderRadius: 20
       }}
     >
+      {/* LOGO */}
       <div
         style={{
           width: 60,
@@ -30,14 +36,27 @@ export default function Header({ onNavigate }) {
         CM
       </div>
 
-      <div style={{ display: "flex", gap: 10 }}>
-        <button onClick={() => onNavigate("/")}>Home</button>
-        <button onClick={() => onNavigate("/gallery")}>Gallery</button>
-        <button onClick={() => onNavigate("/album")}>Album</button>
-        <button onClick={() => onNavigate("/about")}>About</button>
+      {/* NAVIGATION */}
+      <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+        <button onClick={() => navigate("/")}>Home</button>
+        <button onClick={() => navigate("/gallery")}>Gallery</button>
+        <button onClick={() => navigate("/album")}>Album</button>
+        <button onClick={() => navigate("/about")}>About</button>
+
+        {/* USER AUTH */}
+        {user ? (
+          <>
+            <span style={{ marginLeft: 10 }}>Hi, {user.name}</span>
+            <button onClick={logout}>Logout</button>
+          </>
+        ) : (
+          <>
+            <button onClick={() => navigate("/login")}>Login</button>
+            <button onClick={() => navigate("/register")}>Register</button>
+          </>
+        )}
       </div>
     </div>
   );
 }
-
 

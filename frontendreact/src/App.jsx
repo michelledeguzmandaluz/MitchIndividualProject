@@ -1,154 +1,6 @@
-// import { useEffect, useState } from "react";
-// import Header from "./Header";
-// import Footer from "./Footer";
-// import HomePage from "./HomePage";
-// import GalleryView from "./GalleryView";
-// import PhotoGallery from "./PhotoGallery";
-// import AboutCreator from "./AboutCreator";
-
-// export default function App() {
-//   const [page, setPage] = useState("/");
-//   const [photos, setPhotos] = useState(() => {
-//     const saved = localStorage.getItem("photos");
-//     return saved ? JSON.parse(saved) : [];
-//   });
-
-//   // 💾 SAVE TO LOCALSTORAGE
-//   useEffect(() => {
-//     localStorage.setItem("photos", JSON.stringify(photos));
-//   }, [photos]);
-
-//   // ➕ ADD
-//   const addPhoto = photo => {
-//     setPhotos(prev => [
-//       ...prev,
-//       {
-//         ...photo,
-//         id: Date.now(),
-//         date: new Date().toLocaleDateString(),
-//         deleted: false
-//       }
-//     ]);
-//   };
-
-//   // ✏️ UPDATE
-//   const updatePhoto = updated => {
-//     setPhotos(prev =>
-//       prev.map(p => (p.id === updated.id ? updated : p))
-//     );
-//   };
-
-//   // 🗑️ DELETE (soft delete)
-//   const deletePhoto = id => {
-//     setPhotos(prev =>
-//       prev.map(p => (p.id === id ? { ...p, deleted: true } : p))
-//     );
-//   };
-
-//   return (
-//     <>
-//       <Header onNavigate={setPage} />
-
-//       {page === "/" && <HomePage photos={photos.filter(p => !p.deleted)} />}
-
-//       {page === "/gallery" && (
-//         <GalleryView photos={photos.filter(p => !p.deleted)} />
-//       )}
-
-//       {page === "/album" && (
-//         <PhotoGallery
-//           photos={photos}
-//           addPhoto={addPhoto}
-//           updatePhoto={updatePhoto}
-//           deletePhoto={deletePhoto}
-//         />
-//       )}
-
-//       {page === "/about" && <AboutCreator />}
-      
-
-//       <Footer />
-//     </>
-//   );
-// }
-
-// import { useEffect, useState } from "react";
-// import Header from "./Header";
-// import Footer from "./Footer";
-// import HomePage from "./HomePage";
-// import GalleryView from "./GalleryView";
-// import PhotoGallery from "./PhotoGallery";
-// import AboutCreator from "./AboutCreator";
-
-// export default function App() {
-//   const [page, setPage] = useState("/");
-//   const [photos, setPhotos] = useState(() => {
-//     const saved = localStorage.getItem("photos");
-//     return saved ? JSON.parse(saved) : [];
-//   });
-
-//   // 💾 SAVE TO LOCALSTORAGE
-//   useEffect(() => {
-//     localStorage.setItem("photos", JSON.stringify(photos));
-//   }, [photos]);
-
-//   // ➕ ADD
-//   const addPhoto = photo => {
-//     setPhotos(prev => [
-//       ...prev,
-//       {
-//         ...photo,
-//         id: Date.now(),
-//         date: new Date().toLocaleDateString(),
-//         deleted: false
-//       }
-//     ]);
-//   };
-
-//   // ✏️ UPDATE
-//   const updatePhoto = updated => {
-//     setPhotos(prev =>
-//       prev.map(p => (p.id === updated.id ? updated : p))
-//     );
-//   };
-
-//   // 🗑️ DELETE (soft delete)
-//   const deletePhoto = id => {
-//     setPhotos(prev =>
-//       prev.map(p => (p.id === id ? { ...p, deleted: true } : p))
-//     );
-//   };
-
-//   return (
-//     <>
-//       {/* 🌸 HEADER */}
-//       <Header onNavigate={setPage} />
-
-//       {/* 🌸 PAGES */}
-//       {page === "/" && <HomePage photos={photos.filter(p => !p.deleted)} />}
-
-//       {page === "/gallery" && (
-//         <GalleryView photos={photos.filter(p => !p.deleted)} />
-//       )}
-
-//       {page === "/album" && (
-//         <PhotoGallery
-//           photos={photos}
-//           addPhoto={addPhoto}
-//           updatePhoto={updatePhoto}
-//           deletePhoto={deletePhoto}
-//         />
-//       )}
-
-//       {page === "/about" && <AboutCreator />}
-
-//       {/* 🌸 FOOTER (FIXED) */}
-//       <Footer onNavigate={setPage} />
-//     </>
-//   );
-// }
-
 import { useEffect, useState } from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
 import Header from "./Header";
 import Footer from "./Footer";
 import HomePage from "./HomePage";
@@ -156,27 +8,33 @@ import GalleryView from "./GalleryView";
 import PhotoGallery from "./PhotoGallery";
 import AboutCreator from "./AboutCreator";
 
+import Welcome from "./pages/Welcome";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+
+import { useAuth } from "./context/AuthContext";
+
+// ProtectedRoute wrapper
+function ProtectedRoute({ children }) {
+  const { user } = useAuth();
+  return user ? children : <Navigate to="/" replace />;
+}
+
 export default function App() {
-  const [page, setPage] = useState("/");
   const [photos, setPhotos] = useState(() => {
     const saved = localStorage.getItem("photos");
     return saved ? JSON.parse(saved) : [];
   });
 
-  // 🔐 ADMIN MODE (set false to lock editing)
+  const { user, logout } = useAuth();
   const isAdmin = true;
 
-  // 💾 SAVE TO LOCAL STORAGE
+  // Persist photos in localStorage
   useEffect(() => {
     localStorage.setItem("photos", JSON.stringify(photos));
   }, [photos]);
 
-  // ⬆️ SCROLL TO TOP ON PAGE CHANGE
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [page]);
-
-  // ➕ ADD PHOTO
+  // Add photo
   const addPhoto = photo => {
     setPhotos(prev => [
       ...prev,
@@ -189,54 +47,66 @@ export default function App() {
     ]);
   };
 
-  // ✏️ UPDATE PHOTO
+  // Update photo
   const updatePhoto = updated => {
-    setPhotos(prev =>
-      prev.map(p => (p.id === updated.id ? updated : p))
-    );
+    setPhotos(prev => prev.map(p => (p.id === updated.id ? updated : p)));
   };
 
-  // 🗑️ SOFT DELETE
+  // Delete photo (soft delete)
   const deletePhoto = id => {
-    setPhotos(prev =>
-      prev.map(p => (p.id === id ? { ...p, deleted: true } : p))
-    );
+    setPhotos(prev => prev.map(p => (p.id === id ? { ...p, deleted: true } : p)));
   };
 
   return (
-    <>
-      {/* 🌸 HEADER */}
-      <Header onNavigate={setPage} currentPage={page} />
+    <BrowserRouter>
+      <Routes>
+        {/* Public routes */}
+        <Route path="/" element={user ? <Navigate to="/home" /> : <Welcome />} />
+        <Route path="/login" element={user ? <Navigate to="/home" /> : <Login />} />
+        <Route path="/register" element={user ? <Navigate to="/home" /> : <Register />} />
 
-      {/* 🌸 PAGE CONTENT WITH FADE */}
-      <div
-        key={page}
-        style={{
-          animation: "fade 0.4s ease-in-out"
-        }}
-      >
-        {page === "/" && (
-          <HomePage photos={photos.filter(p => !p.deleted)} />
-        )}
-
-        {page === "/gallery" && (
-          <GalleryView photos={photos.filter(p => !p.deleted)} />
-        )}
-
-        {page === "/album" && (
-          <PhotoGallery
-            photos={photos}
-            addPhoto={isAdmin ? addPhoto : null}
-            updatePhoto={isAdmin ? updatePhoto : null}
-            deletePhoto={isAdmin ? deletePhoto : null}
-          />
-        )}
-
-        {page === "/about" && <AboutCreator />}
-      </div>
-
-      {/* 🌸 FOOTER */}
-      <Footer onNavigate={setPage} />
-    </>
+        {/* Protected routes */}
+        <Route
+          path="*"
+          element={
+            <ProtectedRoute>
+              <Header user={user} onLogout={logout} />
+              <Routes>
+                <Route
+                  path="/home"
+                  element={<HomePage photos={photos.filter(p => !p.deleted)} />}
+                />
+                <Route
+                  path="/gallery"
+                  element={<GalleryView photos={photos.filter(p => !p.deleted)} />}
+                />
+                <Route
+                  path="/album"
+                  element={
+                    <PhotoGallery
+                      photos={photos}
+                      addPhoto={isAdmin ? addPhoto : null}
+                      updatePhoto={isAdmin ? updatePhoto : null}
+                      deletePhoto={isAdmin ? deletePhoto : null}
+                    />
+                  }
+                />
+                <Route path="/about" element={<AboutCreator />} />
+                <Route path="*" element={<Navigate to="/home" replace />} />
+              </Routes>
+              <Footer />
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
   );
 }
+
+
+
+
+
+
+
+

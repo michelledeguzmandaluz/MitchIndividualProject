@@ -80,7 +80,7 @@ export default function AboutCreator() {
         </h2>
 
         <p style={{ color: "#9d174d", marginBottom: "1.6rem" }}>
-          Photographer · Sunset lover 🌅
+          Photographer · Sunset lover
         </p>
 
         {/* 🔗 SOCIAL ICONS */}
