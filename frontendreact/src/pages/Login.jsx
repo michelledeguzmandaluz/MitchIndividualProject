@@ -15,55 +15,89 @@
 //     if (!success) {
 //       setError("Invalid email or password");
 //     } else {
-//       navigate("/"); // match the home page route
+//       navigate("/");
 //     }
 //   };
 
 //   return (
-//     <div style={container}>
-//       <form onSubmit={handleSubmit} style={form}>
-//         <h2 style={title}>Welcome Back</h2>
-//         <p style={subtitle}>Login to access the gallery</p>
+//     <div style={{ position: "relative", minHeight: "100vh", overflow: "hidden" }}>
+      
+//       {/* 🌅 VIDEO BACKGROUND */}
+//       <video
+//         autoPlay
+//         loop
+//         muted
+//         playsInline
+//         style={{
+//           position: "absolute",
+//           inset: 0,
+//           width: "100%",
+//           height: "100%",
+//           objectFit: "cover",
+//           zIndex: 0,
+//           pointerEvents: "none",
+//         }}
+//       >
+//         <source src="/sunsets/sunset.mp4" type="video/mp4" />
+//       </video>
 
-//         <input
-//           type="email"
-//           placeholder="Email"
-//           value={email}
-//           onChange={e => { setEmail(e.target.value); setError(""); }}
-//           style={input}
-//           required
-//         />
-//         <input
-//           type="password"
-//           placeholder="Password"
-//           value={password}
-//           onChange={e => { setPassword(e.target.value); setError(""); }}
-//           style={input}
-//           required
-//         />
+//       {/* 🌑 DARK OVERLAY */}
+//       <div
+//         style={{
+//           position: "absolute",
+//           inset: 0,
+//           background: "rgba(0,0,0,0.6)",
+//           zIndex: 1,
+//           pointerEvents: "none",
+//         }}
+//       />
 
-//         {error && <p style={errorStyle}>{error}</p>}
+//       {/* 🎯 LOGIN FORM */}
+//       <div style={{ ...container, position: "relative", zIndex: 2 }}>
+//         <form onSubmit={handleSubmit} style={form}>
+//           <h2 style={title}>Welcome Back</h2>
+//           <p style={subtitle}>Login to access the Capturing Memories: Sunsets</p>
 
-//         <button type="submit" style={button}>Login</button>
+//           <input
+//             type="email"
+//             placeholder="Email"
+//             value={email}
+//             onChange={e => { setEmail(e.target.value); setError(""); }}
+//             style={input}
+//             required
+//           />
 
-//         <p style={footerText}>
-//           Don't have an account?{" "}
-//           <span style={link} onClick={() => navigate("/register")}>
-//             Create one
-//           </span>
-//         </p>
-//       </form>
+//           <input
+//             type="password"
+//             placeholder="Password"
+//             value={password}
+//             onChange={e => { setPassword(e.target.value); setError(""); }}
+//             style={input}
+//             required
+//           />
+
+//           {error && <p style={errorStyle}>{error}</p>}
+
+//           <button type="submit" style={button}>Login</button>
+
+//           <p style={footerText}>
+//             Don't have an account?{" "}
+//             <span style={link} onClick={() => navigate("/register")}>
+//               Create one
+//             </span>
+//           </p>
+//         </form>
+//       </div>
 //     </div>
 //   );
 // }
 
-// // Styles
+// /* STYLES (unchanged) */
 // const container = {
 //   display: "flex",
 //   justifyContent: "center",
 //   alignItems: "center",
 //   height: "100vh",
-//   background: "linear-gradient(135deg, #fce7f3, #fbcfe8)"
 // };
 
 // const form = {
@@ -77,15 +111,19 @@
 //   width: 320,
 // };
 
-// const title = { color: "#be185d", fontSize: 28, marginBottom: 4 };
-// const subtitle = { color: "#9d174d", marginBottom: 12 };
+// const title = { color: "#be185d",
+//   fontSize: 28,
+//   marginBottom: 4,
+//   textAlign: "center",
+//   fontWeight: "bold", };
+// const subtitle = { color: "#9d174d", marginBottom: 12, textAlign:"center"};
 // const input = { padding: 10, borderRadius: 6, border: "1px solid #ccc", fontSize: 14 };
 // const button = { padding: 12, borderRadius: 8, border: "none", background: "#ec4899", color: "#fff", fontWeight: 600, cursor: "pointer" };
 // const footerText = { fontSize: 14, textAlign: "center", marginTop: 8 };
 // const link = { color: "#ec4899", cursor: "pointer", fontWeight: 600 };
 // const errorStyle = { color: "red", fontSize: 14, marginTop: 4 };
 
-// import { useState } from "react";
+// import { useState, useEffect } from "react";
 // import { useAuth } from "../context/AuthContext";
 // import { useNavigate } from "react-router-dom";
 
@@ -97,32 +135,595 @@
 //   const [password, setPassword] = useState("");
 //   const [error, setError] = useState("");
 
+//   // 🔥 Clear fields every time page loads
+//   useEffect(() => {
+//     setEmail("");
+//     setPassword("");
+//     setError("");
+//   }, []);
+
 //   const handleSubmit = e => {
 //     e.preventDefault();
+
 //     const success = login(email, password);
 
 //     if (!success) {
 //       setError("Invalid email or password");
 //     } else {
+//       // 🔥 Clear after login
+//       setEmail("");
+//       setPassword("");
 //       navigate("/");
 //     }
 //   };
 
 //   return (
-//     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-pink-100 to-pink-200 px-4">
-//       <form
-//         onSubmit={handleSubmit}
-//         className="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl sm:p-8"
+//     <div style={{ position: "relative", minHeight: "100vh", overflow: "hidden" }}>
+      
+//       {/* 🌅 VIDEO BACKGROUND */}
+//       <video
+//         autoPlay
+//         loop
+//         muted
+//         playsInline
+//         style={{
+//           position: "absolute",
+//           inset: 0,
+//           width: "100%",
+//           height: "100%",
+//           objectFit: "cover",
+//           zIndex: 0,
+//           pointerEvents: "none",
+//         }}
 //       >
-//         <h2 className="mb-1 text-center text-2xl font-bold text-pink-700 sm:text-3xl">
-//           Welcome Back
-//         </h2>
+//         <source src="/sunsets/sunset.mp4" type="video/mp4" />
+//       </video>
 
-//         <p className="mb-6 text-center text-sm text-pink-600 sm:text-base">
-//           Login to access the gallery
-//         </p>
+//       {/* 🌑 DARK OVERLAY */}
+//       <div
+//         style={{
+//           position: "absolute",
+//           inset: 0,
+//           background: "rgba(0,0,0,0.6)",
+//           zIndex: 1,
+//           pointerEvents: "none",
+//         }}
+//       />
 
-//         <div className="space-y-4">
+//       {/* 🎯 LOGIN FORM */}
+//       <div style={{ ...container, position: "relative", zIndex: 2 }}>
+//         <form onSubmit={handleSubmit} style={form} autoComplete="off">
+//           <h2 style={title}>Welcome Back</h2>
+//           <p style={subtitle}>Login to access the Capturing Memories: Sunsets</p>
+
+//           <input
+//             type="email"
+//             name="email"
+//             autoComplete="off"
+//             placeholder="Email"
+//             value={email}
+//             onChange={e => { setEmail(e.target.value); setError(""); }}
+//             style={input}
+//             required
+//           />
+
+//           <input
+//             type="password"
+//             name="password"
+//             autoComplete="new-password"
+//             placeholder="Password"
+//             value={password}
+//             onChange={e => { setPassword(e.target.value); setError(""); }}
+//             style={input}
+//             required
+//           />
+
+//           {error && <p style={errorStyle}>{error}</p>}
+
+//           <button type="submit" style={button}>Login</button>
+
+//           <p style={footerText}>
+//             Don't have an account?{" "}
+//             <span style={link} onClick={() => navigate("/register")}>
+//               Create one
+//             </span>
+//           </p>
+//         </form>
+//       </div>
+//     </div>
+//   );
+// }
+
+// /* STYLES */
+// const container = {
+//   display: "flex",
+//   justifyContent: "center",
+//   alignItems: "center",
+//   height: "100vh",
+// };
+
+// const form = {
+//   display: "flex",
+//   flexDirection: "column",
+//   gap: 12,
+//   padding: 24,
+//   borderRadius: 12,
+//   background: "#fff",
+//   boxShadow: "0 8px 20px rgba(0,0,0,0.15)",
+//   width: 320,
+// };
+
+// const title = {
+//   color: "#be185d",
+//   fontSize: 28,
+//   marginBottom: 4,
+//   textAlign: "center",
+//   fontWeight: "bold",
+// };
+
+// const subtitle = { color: "#9d174d", marginBottom: 12, textAlign: "center" };
+// const input = { padding: 10, borderRadius: 6, border: "1px solid #ccc", fontSize: 14 };
+// const button = { padding: 12, borderRadius: 8, border: "none", background: "#ec4899", color: "#fff", fontWeight: 600, cursor: "pointer" };
+// const footerText = { fontSize: 14, textAlign: "center", marginTop: 8 };
+// const link = { color: "#ec4899", cursor: "pointer", fontWeight: 600 };
+// const errorStyle = { color: "red", fontSize: 14, marginTop: 4 };
+
+// import { useState, useEffect } from "react";
+// import { useAuth } from "../context/AuthContext";
+// import { useNavigate } from "react-router-dom";
+
+// export default function Login() {
+//   const { login, resetPassword } = useAuth();
+//   const navigate = useNavigate();
+
+//   const [email, setEmail] = useState("");
+//   const [password, setPassword] = useState("");
+//   const [error, setError] = useState("");
+//   const [message, setMessage] = useState("");
+
+//   // 🔥 Clear fields every time page loads
+//   useEffect(() => {
+//     setEmail("");
+//     setPassword("");
+//     setError("");
+//     setMessage("");
+//   }, []);
+
+//   const handleSubmit = e => {
+//     e.preventDefault();
+
+//     const success = login(email, password);
+
+//     if (!success) {
+//       setError("Invalid email or password");
+//     } else {
+//       setEmail("");
+//       setPassword("");
+//       navigate("/");
+//     }
+//   };
+
+//   // 🔑 RESET PASSWORD
+//   const handleResetPassword = () => {
+//     if (!email) {
+//       setError("Please enter your email to reset password");
+//       return;
+//     }
+
+//     const success = resetPassword(email);
+
+//     if (success) {
+//       setMessage("Password reset link sent to your email");
+//       setError("");
+//     } else {
+//       setError("Email not found");
+//       setMessage("");
+//     }
+//   };
+
+//   return (
+//     <div style={{ position: "relative", minHeight: "100vh", overflow: "hidden" }}>
+      
+//       {/* 🌅 VIDEO BACKGROUND */}
+//       <video
+//         autoPlay
+//         loop
+//         muted
+//         playsInline
+//         style={{
+//           position: "absolute",
+//           inset: 0,
+//           width: "100%",
+//           height: "100%",
+//           objectFit: "cover",
+//           zIndex: 0,
+//           pointerEvents: "none",
+//         }}
+//       >
+//         <source src="/sunsets/sunset.mp4" type="video/mp4" />
+//       </video>
+
+//       {/* 🌑 DARK OVERLAY */}
+//       <div
+//         style={{
+//           position: "absolute",
+//           inset: 0,
+//           background: "rgba(0,0,0,0.6)",
+//           zIndex: 1,
+//           pointerEvents: "none",
+//         }}
+//       />
+
+//       {/* 🎯 LOGIN FORM */}
+//       <div style={{ ...container, position: "relative", zIndex: 2 }}>
+//         <form onSubmit={handleSubmit} style={form} autoComplete="off">
+//           <h2 style={title}>Welcome Back</h2>
+//           <p style={subtitle}>Login to access the Capturing Memories: Sunsets</p>
+
+//           <input
+//             type="email"
+//             name="email"
+//             autoComplete="off"
+//             placeholder="Email"
+//             value={email}
+//             onChange={e => { setEmail(e.target.value); setError(""); setMessage(""); }}
+//             style={input}
+//             required
+//           />
+
+//           <input
+//             type="password"
+//             name="password"
+//             autoComplete="new-password"
+//             placeholder="Password"
+//             value={password}
+//             onChange={e => { setPassword(e.target.value); setError(""); }}
+//             style={input}
+//             required
+//           />
+
+//           {error && <p style={errorStyle}>{error}</p>}
+//           {message && <p style={successStyle}>{message}</p>}
+
+//           <button type="submit" style={button}>Login</button>
+
+//           {/* 🔑 RESET PASSWORD */}
+//           <p style={resetText} onClick={handleResetPassword}>
+//             Forgot password?
+//           </p>
+
+//           <p style={footerText}>
+//             Don't have an account?{" "}
+//             <span style={link} onClick={() => navigate("/register")}>
+//               Create one
+//             </span>
+//           </p>
+//         </form>
+//       </div>
+//     </div>
+//   );
+// }
+
+// import { useState, useEffect } from "react";
+// import { useAuth } from "../context/AuthContext";
+// import { useNavigate } from "react-router-dom";
+
+// export default function Login() {
+//   const { login, resetPassword } = useAuth();
+//   const navigate = useNavigate();
+
+//   const [email, setEmail] = useState("");
+//   const [password, setPassword] = useState("");
+//   const [error, setError] = useState("");
+//   const [message, setMessage] = useState("");
+//   const [resetting, setResetting] = useState(false);
+
+//   // 🔥 Clear fields every time page loads
+//   useEffect(() => {
+//     setEmail("");
+//     setPassword("");
+//     setError("");
+//     setMessage("");
+//     setResetting(false);
+//   }, []);
+
+//   const handleSubmit = e => {
+//     e.preventDefault();
+
+//     setError("");
+//     setMessage("");
+
+//     const success = login(email, password);
+
+//     if (!success) {
+//       setError("Invalid email or password");
+//       return;
+//     }
+
+//     setEmail("");
+//     setPassword("");
+//     navigate("/");
+//   };
+
+//   // 🔑 RESET PASSWORD
+//   const handleResetPassword = () => {
+//     if (!email || resetting) return;
+
+//     setResetting(true);
+//     setError("");
+//     setMessage("");
+
+//     const success = resetPassword(email);
+
+//     if (success) {
+//       setMessage("Password reset link sent to your email");
+//     } else {
+//       setError("Email not found");
+//     }
+
+//     setResetting(false);
+//   };
+
+//   return (
+//     <div style={{ position: "relative", minHeight: "100vh", overflow: "hidden" }}>
+      
+//       {/* 🌅 VIDEO BACKGROUND */}
+//       <video
+//         autoPlay
+//         loop
+//         muted
+//         playsInline
+//         style={{
+//           position: "absolute",
+//           inset: 0,
+//           width: "100%",
+//           height: "100%",
+//           objectFit: "cover",
+//           zIndex: 0,
+//           pointerEvents: "none",
+//         }}
+//       >
+//         <source src="/sunsets/sunset.mp4" type="video/mp4" />
+//       </video>
+
+//       {/* 🌑 DARK OVERLAY */}
+//       <div
+//         style={{
+//           position: "absolute",
+//           inset: 0,
+//           background: "rgba(0,0,0,0.6)",
+//           zIndex: 1,
+//           pointerEvents: "none",
+//         }}
+//       />
+
+//       {/* 🎯 LOGIN FORM */}
+//       <div style={{ ...container, position: "relative", zIndex: 2 }}>
+//         <form onSubmit={handleSubmit} style={form} autoComplete="off">
+//           <h2 style={title}>Welcome Back</h2>
+//           <p style={subtitle}>
+//             Login to access the Capturing Memories: Sunsets
+//           </p>
+
+//           <input
+//             type="email"
+//             name="email"
+//             autoComplete="off"
+//             placeholder="Email"
+//             value={email}
+//             onChange={e => {
+//               setEmail(e.target.value);
+//               setError("");
+//               setMessage("");
+//             }}
+//             style={input}
+//             required
+//           />
+
+//           <input
+//             type="password"
+//             name="password"
+//             autoComplete="new-password"
+//             placeholder="Password"
+//             value={password}
+//             onChange={e => {
+//               setPassword(e.target.value);
+//               setError("");
+//             }}
+//             style={input}
+//             required
+//           />
+
+//           {error && <p style={errorStyle}>{error}</p>}
+//           {message && <p style={successStyle}>{message}</p>}
+
+//           <button type="submit" style={button}>
+//             Login
+//           </button>
+
+//           {/* 🔑 RESET PASSWORD */}
+//           <p
+//             style={{
+//               ...resetText,
+//               opacity: resetting ? 0.6 : 1,
+//               pointerEvents: resetting ? "none" : "auto",
+//             }}
+//             onClick={handleResetPassword}
+//           >
+//             Forgot password?
+//           </p>
+
+//           <p style={footerText}>
+//             Don't have an account?{" "}
+//             <span style={link} onClick={() => navigate("/register")}>
+//               Create one
+//             </span>
+//           </p>
+//         </form>
+//       </div>
+//     </div>
+//   );
+// }
+
+// /* ================= STYLES ================= */
+
+// const container = {
+//   display: "flex",
+//   justifyContent: "center",
+//   alignItems: "center",
+//   height: "100vh",
+// };
+
+// const form = {
+//   display: "flex",
+//   flexDirection: "column",
+//   gap: 12,
+//   padding: 24,
+//   borderRadius: 12,
+//   background: "#fff",
+//   boxShadow: "0 8px 20px rgba(0,0,0,0.15)",
+//   width: 320,
+// };
+
+// const title = {
+//   color: "#be185d",
+//   fontSize: 28,
+//   marginBottom: 4,
+//   textAlign: "center",
+//   fontWeight: "bold",
+// };
+
+// const subtitle = {
+//   color: "#9d174d",
+//   marginBottom: 12,
+//   textAlign: "center",
+// };
+
+// const input = {
+//   padding: 10,
+//   borderRadius: 6,
+//   border: "1px solid #ccc",
+//   fontSize: 14,
+// };
+
+// const button = {
+//   padding: 12,
+//   borderRadius: 8,
+//   border: "none",
+//   background: "#ec4899",
+//   color: "#fff",
+//   fontWeight: 600,
+//   cursor: "pointer",
+// };
+
+// const footerText = {
+//   fontSize: 14,
+//   textAlign: "center",
+//   marginTop: 8,
+// };
+
+// const link = {
+//   color: "#ec4899",
+//   cursor: "pointer",
+//   fontWeight: 600,
+// };
+
+// const errorStyle = {
+//   color: "red",
+//   fontSize: 14,
+//   marginTop: 4,
+// };
+
+// const successStyle = {
+//   color: "green",
+//   fontSize: 14,
+//   marginTop: 4,
+// };
+
+// const resetText = {
+//   fontSize: 13,
+//   color: "#be185d",
+//   textAlign: "center",
+//   cursor: "pointer",
+//   marginTop: 4,
+// };
+
+// import { useState, useEffect } from "react";
+// import { useAuth } from "../context/AuthContext";
+// import { useNavigate } from "react-router-dom";
+
+// export default function Login() {
+//   const { login } = useAuth();
+//   const navigate = useNavigate();
+
+//   const [email, setEmail] = useState("");
+//   const [password, setPassword] = useState("");
+//   const [error, setError] = useState("");
+
+//   // 🔥 Clear fields every time page loads
+//   useEffect(() => {
+//     setEmail("");
+//     setPassword("");
+//     setError("");
+//   }, []);
+
+//   const handleSubmit = e => {
+//     e.preventDefault();
+//     setError("");
+
+//     const success = login(email, password);
+
+//     if (!success) {
+//       setError("Invalid email or password");
+//       return;
+//     }
+
+//     setEmail("");
+//     setPassword("");
+//     navigate("/home");
+//   };
+
+//   return (
+//     <div style={{ position: "relative", minHeight: "100vh", overflow: "hidden" }}>
+      
+//       {/* 🌅 VIDEO BACKGROUND */}
+//       <video
+//         autoPlay
+//         loop
+//         muted
+//         playsInline
+//         style={{
+//           position: "absolute",
+//           inset: 0,
+//           width: "100%",
+//           height: "100%",
+//           objectFit: "cover",
+//           zIndex: 0,
+//           pointerEvents: "none",
+//         }}
+//       >
+//         <source src="/sunsets/sunset.mp4" type="video/mp4" />
+//       </video>
+
+//       {/* 🌑 DARK OVERLAY */}
+//       <div
+//         style={{
+//           position: "absolute",
+//           inset: 0,
+//           background: "rgba(0,0,0,0.6)",
+//           zIndex: 1,
+//           pointerEvents: "none",
+//         }}
+//       />
+
+//       {/* 🎯 LOGIN FORM */}
+//       <div style={{ ...container, position: "relative", zIndex: 2 }}>
+//         <form onSubmit={handleSubmit} style={form} autoComplete="off">
+//           <h2 style={title}>Welcome Back</h2>
+//           <p style={subtitle}>
+//             Login to access the Capturing Memories: Sunsets
+//           </p>
+
 //           <input
 //             type="email"
 //             placeholder="Email"
@@ -131,8 +732,8 @@
 //               setEmail(e.target.value);
 //               setError("");
 //             }}
+//             style={input}
 //             required
-//             className="w-full rounded-lg border border-gray-300 px-4 py-3 text-base focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-200"
 //           />
 
 //           <input
@@ -143,39 +744,326 @@
 //               setPassword(e.target.value);
 //               setError("");
 //             }}
+//             style={input}
 //             required
-//             className="w-full rounded-lg border border-gray-300 px-4 py-3 text-base focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-200"
 //           />
-//         </div>
 
-//         {error && (
-//           <p className="mt-3 text-center text-sm text-red-500">
-//             {error}
-//           </p>
-//         )}
+//           {error && <p style={errorStyle}>{error}</p>}
 
-//         <button
-//           type="submit"
-//           className="mt-6 w-full rounded-lg bg-pink-500 py-3 font-semibold text-white transition hover:bg-pink-600 active:scale-[0.98]"
-//         >
-//           Login
-//         </button>
+//           <button type="submit" style={button}>
+//             Login
+//           </button>
 
-//         <p className="mt-4 text-center text-sm text-gray-600">
-//           Don’t have an account?{" "}
-//           <span
-//             onClick={() => navigate("/register")}
-//             className="cursor-pointer font-semibold text-pink-600 hover:underline"
+//           {/* 🔑 RESET PASSWORD → PAGE */}
+//           <p
+//             style={resetText}
+//             onClick={() => navigate("/reset-password")}
 //           >
-//             Create one
-//           </span>
-//         </p>
-//       </form>
+//             Forgot password?
+//           </p>
+
+//           <p style={footerText}>
+//             Don't have an account?{" "}
+//             <span style={link} onClick={() => navigate("/register")}>
+//               Create one
+//             </span>
+//           </p>
+//         </form>
+//       </div>
 //     </div>
 //   );
 // }
 
-import { useState } from "react";
+// /* ================= STYLES ================= */
+
+// const container = {
+//   display: "flex",
+//   justifyContent: "center",
+//   alignItems: "center",
+//   height: "100vh",
+// };
+
+// const form = {
+//   display: "flex",
+//   flexDirection: "column",
+//   gap: 12,
+//   padding: 24,
+//   borderRadius: 12,
+//   background: "#fff",
+//   boxShadow: "0 8px 20px rgba(0,0,0,0.15)",
+//   width: 320,
+// };
+
+// const title = {
+//   color: "#be185d",
+//   fontSize: 28,
+//   marginBottom: 4,
+//   textAlign: "center",
+//   fontWeight: "bold",
+// };
+
+// const subtitle = {
+//   color: "#9d174d",
+//   marginBottom: 12,
+//   textAlign: "center",
+// };
+
+// const input = {
+//   padding: 10,
+//   borderRadius: 6,
+//   border: "1px solid #ccc",
+//   fontSize: 14,
+// };
+
+// const button = {
+//   padding: 12,
+//   borderRadius: 8,
+//   border: "none",
+//   background: "#ec4899",
+//   color: "#fff",
+//   fontWeight: 600,
+//   cursor: "pointer",
+// };
+
+// const footerText = {
+//   fontSize: 14,
+//   textAlign: "center",
+//   marginTop: 8,
+// };
+
+// const link = {
+//   color: "#ec4899",
+//   cursor: "pointer",
+//   fontWeight: 600,
+// };
+
+// const errorStyle = {
+//   color: "red",
+//   fontSize: 14,
+//   marginTop: 4,
+// };
+
+// const resetText = {
+//   fontSize: 13,
+//   color: "#be185d",
+//   textAlign: "center",
+//   cursor: "pointer",
+//   marginTop: 4,
+// };
+
+// import { useState, useEffect } from "react";
+// import { useAuth } from "../context/AuthContext";
+// import { useNavigate } from "react-router-dom";
+
+// export default function Login() {
+//   const { login } = useAuth();
+//   const navigate = useNavigate();
+
+//   const [email, setEmail] = useState("");
+//   const [password, setPassword] = useState("");
+//   const [error, setError] = useState("");
+
+//   // 🔥 Clear fields every time page loads
+//   useEffect(() => {
+//     setEmail("");
+//     setPassword("");
+//     setError("");
+//   }, []);
+
+//   const handleSubmit = e => {
+//     e.preventDefault();
+//     setError("");
+
+//     const success = login(email, password);
+
+//     if (!success) {
+//       setError("Invalid email or password");
+//       return;
+//     }
+
+//     setEmail("");
+//     setPassword("");
+//     navigate("/home");
+//   };
+
+//   return (
+//     <div style={{ position: "relative", minHeight: "100vh", overflow: "hidden" }}>
+      
+//       {/* 🌅 VIDEO BACKGROUND */}
+//       <video
+//         autoPlay
+//         loop
+//         muted
+//         playsInline
+//         style={{
+//           position: "absolute",
+//           inset: 0,
+//           width: "100%",
+//           height: "100%",
+//           objectFit: "cover",
+//           zIndex: 0,
+//           pointerEvents: "none",
+//         }}
+//       >
+//         <source src="/sunsets/sunset.mp4" type="video/mp4" />
+//       </video>
+
+//       {/* 🌑 DARK OVERLAY */}
+//       <div
+//         style={{
+//           position: "absolute",
+//           inset: 0,
+//           background: "rgba(0,0,0,0.6)",
+//           zIndex: 1,
+//           pointerEvents: "none",
+//         }}
+//       />
+
+//       {/* 🎯 LOGIN FORM */}
+//       <div style={{ ...container, position: "relative", zIndex: 2 }}>
+//         <form onSubmit={handleSubmit} style={form} autoComplete="off">
+
+//           {/* 🧠 Autofill blockers */}
+//           <input type="text" style={{ display: "none" }} />
+//           <input type="password" style={{ display: "none" }} />
+
+//           <h2 style={title}>Welcome Back</h2>
+//           <p style={subtitle}>
+//             Login to access the Capturing Memories: Sunsets
+//           </p>
+
+//           <input
+//             type="email"
+//             name="login-email"
+//             autoComplete="off"
+//             placeholder="Email"
+//             value={email}
+//             onChange={e => {
+//               setEmail(e.target.value);
+//               setError("");
+//             }}
+//             style={input}
+//             required
+//           />
+
+//           <input
+//             type="password"
+//             name="login-password"
+//             autoComplete="new-password"
+//             placeholder="Password"
+//             value={password}
+//             onChange={e => {
+//               setPassword(e.target.value);
+//               setError("");
+//             }}
+//             style={input}
+//             required
+//           />
+
+//           {error && <p style={errorStyle}>{error}</p>}
+
+//           <button type="submit" style={button}>
+//             Login
+//           </button>
+
+//           {/* 🔑 RESET PASSWORD → PAGE */}
+//           <p
+//             style={resetText}
+//             onClick={() => navigate("/reset-password")}
+//           >
+//             Forgot password?
+//           </p>
+
+//           <p style={footerText}>
+//             Don't have an account?{" "}
+//             <span style={link} onClick={() => navigate("/register")}>
+//               Create one
+//             </span>
+//           </p>
+//         </form>
+//       </div>
+//     </div>
+//   );
+// }
+
+// /* ================= STYLES ================= */
+
+// const container = {
+//   display: "flex",
+//   justifyContent: "center",
+//   alignItems: "center",
+//   height: "100vh",
+// };
+
+// const form = {
+//   display: "flex",
+//   flexDirection: "column",
+//   gap: 12,
+//   padding: 24,
+//   borderRadius: 12,
+//   background: "#fff",
+//   boxShadow: "0 8px 20px rgba(0,0,0,0.15)",
+//   width: 320,
+// };
+
+// const title = {
+//   color: "#be185d",
+//   fontSize: 28,
+//   marginBottom: 4,
+//   textAlign: "center",
+//   fontWeight: "bold",
+// };
+
+// const subtitle = {
+//   color: "#9d174d",
+//   marginBottom: 12,
+//   textAlign: "center",
+// };
+
+// const input = {
+//   padding: 10,
+//   borderRadius: 6,
+//   border: "1px solid #ccc",
+//   fontSize: 14,
+// };
+
+// const button = {
+//   padding: 12,
+//   borderRadius: 8,
+//   border: "none",
+//   background: "#ec4899",
+//   color: "#fff",
+//   fontWeight: 600,
+//   cursor: "pointer",
+// };
+
+// const footerText = {
+//   fontSize: 14,
+//   textAlign: "center",
+//   marginTop: 8,
+// };
+
+// const link = {
+//   color: "#ec4899",
+//   cursor: "pointer",
+//   fontWeight: 600,
+// };
+
+// const errorStyle = {
+//   color: "red",
+//   fontSize: 14,
+//   marginTop: 4,
+// };
+
+// const resetText = {
+//   fontSize: 13,
+//   color: "#be185d",
+//   textAlign: "center",
+//   cursor: "pointer",
+//   marginTop: 4,
+// };
+
+import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
@@ -187,129 +1075,118 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+  useEffect(() => {
+    setEmail("");
+    setPassword("");
+    setError("");
+  }, []);
+
   const handleSubmit = e => {
     e.preventDefault();
+    setError("");
+
     const success = login(email, password);
 
     if (!success) {
       setError("Invalid email or password");
-    } else {
-      navigate("/");
+      return;
     }
+
+    navigate("/home");
   };
 
   return (
-    <div className="relative min-h-screen overflow-hidden">
-
+    <div style={{ position: "relative", minHeight: "100vh", overflow: "hidden" }}>
       {/* 🌅 VIDEO BACKGROUND */}
       <video
         autoPlay
         loop
         muted
         playsInline
-        className="absolute inset-0 h-full w-full object-cover"
+        style={{
+          position: "absolute",
+          inset: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          zIndex: 0,
+          pointerEvents: "none",
+        }}
       >
         <source src="/sunsets/sunset.mp4" type="video/mp4" />
       </video>
 
       {/* 🌑 DARK OVERLAY */}
-      <div className="absolute inset-0 bg-black/60" />
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: "rgba(0,0,0,0.6)",
+          zIndex: 1,
+          pointerEvents: "none",
+        }}
+      />
 
-      {/* 🎯 LOGIN CARD */}
-      <div className="relative z-10 flex min-h-screen items-center justify-center px-4">
+      {/* 🎯 LOGIN FORM */}
+      <div style={{ ...container, position: "relative", zIndex: 2 }}>
         <form
           onSubmit={handleSubmit}
-          className="
-            w-full max-w-md
-            rounded-3xl
-            backdrop-blur-md
-            p-8
-          "
+          style={form}
+          autoComplete="off"
         >
-          {/* SPACER */}
-          <div className="h-12" />
-          <h2 className="mb-2 text-center text-3xl font-extrabold text-white">
-            Welcome Back
-          </h2>
-          {/* SPACER */}
-          
-          <p className="mb-6 text-center text-sm text-gray-300">
-            Login to access the gallery
-          </p>
-            {/* SPACER */}
-          <div className="h-12" />
-          <div className="space-y-4">
-            <input
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={e => {
-                setEmail(e.target.value);
-                setError("");
-              }}
-              required
-              className="
-                w-full box-2xl
-                bg-white/90
-                px-6 py-4
-                text-gray-800
-                focus:outline-none
-                focus:ring-2 focus:ring-pink-400
-              "
-            />
-            {/* SPACER */}
-          <div className="h-12" />
-            <input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={e => {
-                setPassword(e.target.value);
-                setError("");
-              }}
-              required
-              className="
-                w-full box-2xl
-                bg-white/90
-                px-4 py-3
-                text-gray-800
-                focus:outline-none
-                focus:ring-2 focus:ring-pink-400
-              "
-            />
-          </div>
+          {/* 🧠 HARD AUTOFILL BLOCKERS */}
+          <input type="text" name="fakeusernameremembered" style={{ display: "none" }} />
+          <input type="password" name="fakepasswordremembered" style={{ display: "none" }} />
 
-          {error && (
-            <p className="mt-4 text-center text-sm text-red-400">
-              {error}
-            </p>
-          )}
-          {/* SPACER */}
-          <div className="h-12" />
-          <button
-            type="submit"
-            className="
-              mt-6 w-full
-              rounded-full
-              bg-gradient-to-r from-pink-500 to-fuchsia-600
-              py-3
-              font-semibold
-              text-white
-              shadow-xl
-              transition
-              hover:scale-105
-            "
-          >
+          <h2 style={title}>Welcome Back</h2>
+          <p style={subtitle}>
+            Login to access the Capturing Memories: Sunsets
+          </p>
+
+          <input
+            type="email"
+            name="user_login_email_x92"
+            autoComplete="off"
+            inputMode="email"
+            spellCheck={false}
+            placeholder="Email"
+            value={email}
+            onChange={e => {
+              setEmail(e.target.value);
+              setError("");
+            }}
+            style={input}
+            required
+          />
+
+          <input
+            type="password"
+            name="user_login_pass_x92"
+            autoComplete="new-password"
+            spellCheck={false}
+            placeholder="Password"
+            value={password}
+            onChange={e => {
+              setPassword(e.target.value);
+              setError("");
+            }}
+            style={input}
+            required
+          />
+
+          {error && <p style={errorStyle}>{error}</p>}
+
+          <button type="submit" style={button}>
             Login
           </button>
-          {/* SPACER */}
-          <div className="h-12" />
-          <p className="mt-5 text-center text-sm text-gray-300">
-            Don’t have an account?{" "}
-            <span
-              onClick={() => navigate("/register")}
-              className="cursor-pointer font-semibold text-pink-400 hover:underline"
-            >
+
+          <p style={resetText} onClick={() => navigate("/reset-password")}>
+            Forgot password?
+          </p>
+
+          <p style={footerText}>
+            Don't have an account?{" "}
+            <span style={link} onClick={() => navigate("/register")}>
               Create one
             </span>
           </p>
@@ -318,3 +1195,80 @@ export default function Login() {
     </div>
   );
 }
+
+/* ================= STYLES ================= */
+
+const container = {
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  height: "100vh",
+};
+
+const form = {
+  display: "flex",
+  flexDirection: "column",
+  gap: 12,
+  padding: 24,
+  borderRadius: 12,
+  background: "#fff",
+  boxShadow: "0 8px 20px rgba(0,0,0,0.15)",
+  width: 320,
+};
+
+const title = {
+  color: "#be185d",
+  fontSize: 28,
+  marginBottom: 4,
+  textAlign: "center",
+  fontWeight: "bold",
+};
+
+const subtitle = {
+  color: "#9d174d",
+  marginBottom: 12,
+  textAlign: "center",
+};
+
+const input = {
+  padding: 10,
+  borderRadius: 6,
+  border: "1px solid #ccc",
+  fontSize: 14,
+};
+
+const button = {
+  padding: 12,
+  borderRadius: 8,
+  border: "none",
+  background: "#ec4899",
+  color: "#fff",
+  fontWeight: 600,
+  cursor: "pointer",
+};
+
+const footerText = {
+  fontSize: 14,
+  textAlign: "center",
+  marginTop: 8,
+};
+
+const link = {
+  color: "#ec4899",
+  cursor: "pointer",
+  fontWeight: 600,
+};
+
+const errorStyle = {
+  color: "red",
+  fontSize: 14,
+  marginTop: 4,
+};
+
+const resetText = {
+  fontSize: 13,
+  color: "#be185d",
+  textAlign: "center",
+  cursor: "pointer",
+  marginTop: 4,
+};

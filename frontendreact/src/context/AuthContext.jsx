@@ -1,3 +1,115 @@
+// import { createContext, useContext, useState } from "react";
+
+// const AuthContext = createContext();
+
+// export function AuthProvider({ children }) {
+//   const [user, setUser] = useState(
+//     JSON.parse(localStorage.getItem("user")) || null
+//   );
+
+//   const login = (email, password) => {
+//     // 🔒 DEMO LOGIN (replace with API later)
+//     const storedUser = JSON.parse(localStorage.getItem(email));
+
+//     if (!storedUser || storedUser.password !== password) {
+//       return false;
+//     }
+
+//     setUser(storedUser);
+//     localStorage.setItem("user", JSON.stringify(storedUser));
+//     return true;
+//   };
+
+//   const register = (name, email, password) => {
+//     const newUser = { name, email, password };
+
+//     localStorage.setItem(email, JSON.stringify(newUser));
+//     setUser(newUser);
+//     localStorage.setItem("user", JSON.stringify(newUser));
+//   };
+
+//   const logout = () => {
+//     setUser(null);
+//     localStorage.removeItem("user");
+//   };
+
+//   return (
+//     <AuthContext.Provider value={{ user, login, register, logout }}>
+//       {children}
+//     </AuthContext.Provider>
+//   );
+// }
+
+// export const useAuth = () => useContext(AuthContext);
+
+// import { createContext, useContext, useState } from "react";
+
+// const AuthContext = createContext();
+
+// export function AuthProvider({ children }) {
+//   const [user, setUser] = useState(
+//     JSON.parse(localStorage.getItem("user")) || null
+//   );
+
+//   // 🔐 LOGIN
+//   const login = (email, password) => {
+//     const storedUser = JSON.parse(localStorage.getItem(email));
+
+//     if (!storedUser || storedUser.password !== password) {
+//       return false;
+//     }
+
+//     setUser(storedUser);
+//     localStorage.setItem("user", JSON.stringify(storedUser));
+//     return true;
+//   };
+
+//   // 📝 REGISTER
+//   const register = (name, email, password) => {
+//     const newUser = { name, email, password };
+
+//     localStorage.setItem(email, JSON.stringify(newUser));
+//     setUser(newUser);
+//     localStorage.setItem("user", JSON.stringify(newUser));
+//   };
+
+//   // 🔑 RESET PASSWORD (DEMO)
+//   const resetPassword = email => {
+//     const storedUser = JSON.parse(localStorage.getItem(email));
+
+//     if (!storedUser) {
+//       return false;
+//     }
+
+//     // Demo behavior (no real email)
+//     console.log(`Password reset link sent to ${email}`);
+
+//     return true;
+//   };
+
+//   // 🚪 LOGOUT
+//   const logout = () => {
+//     setUser(null);
+//     localStorage.removeItem("user");
+//   };
+
+//   return (
+//     <AuthContext.Provider
+//       value={{
+//         user,
+//         login,
+//         register,
+//         logout,
+//         resetPassword, // ✅ MUST be exposed
+//       }}
+//     >
+//       {children}
+//     </AuthContext.Provider>
+//   );
+// }
+
+// export const useAuth = () => useContext(AuthContext);
+
 import { createContext, useContext, useState } from "react";
 
 const AuthContext = createContext();
@@ -7,34 +119,67 @@ export function AuthProvider({ children }) {
     JSON.parse(localStorage.getItem("user")) || null
   );
 
+  /* ================= LOGIN ================= */
   const login = (email, password) => {
-    // 🔒 DEMO LOGIN (replace with API later)
     const storedUser = JSON.parse(localStorage.getItem(email));
 
-    if (!storedUser || storedUser.password !== password) {
-      return false;
-    }
+    if (!storedUser) return false;
+    if (storedUser.password !== password) return false;
 
     setUser(storedUser);
     localStorage.setItem("user", JSON.stringify(storedUser));
     return true;
   };
 
+  /* ================= REGISTER ================= */
   const register = (name, email, password) => {
     const newUser = { name, email, password };
 
     localStorage.setItem(email, JSON.stringify(newUser));
-    setUser(newUser);
     localStorage.setItem("user", JSON.stringify(newUser));
+    setUser(newUser);
   };
 
+  /* ================= RESET PASSWORD ================= */
+  const resetPassword = (email, newPassword) => {
+    const storedUser = JSON.parse(localStorage.getItem(email));
+
+    if (!storedUser) return false;
+
+    const updatedUser = {
+      ...storedUser,
+      password: newPassword,
+    };
+
+    // 🔥 overwrite user record
+    localStorage.setItem(email, JSON.stringify(updatedUser));
+
+    // 🔄 update session user if same email
+    const currentUser = JSON.parse(localStorage.getItem("user"));
+    if (currentUser?.email === email) {
+      localStorage.setItem("user", JSON.stringify(updatedUser));
+      setUser(updatedUser);
+    }
+
+    return true;
+  };
+
+  /* ================= LOGOUT ================= */
   const logout = () => {
     setUser(null);
     localStorage.removeItem("user");
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, register, logout }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        login,
+        register,
+        resetPassword,
+        logout,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
