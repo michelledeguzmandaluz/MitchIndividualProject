@@ -369,3 +369,14 @@ footer {
   color: #9d174d;
   box-shadow: 0 15px 35px rgba(236, 72, 153, 0.25);
 }
+
+@media (max-width: 1024px) {
+  .card-grid { grid-template-columns: repeat(3, 1fr) !important; }
+}
+@media (max-width: 768px) {
+  .card-grid { grid-template-columns: repeat(2, 1fr) !important; }
+}
+@media (max-width: 480px) {
+  .card-grid { grid-template-columns: 1fr !important; }
+}
+
