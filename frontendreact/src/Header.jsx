@@ -108,8 +108,8 @@ export default function Header() {
   const { user, logout } = useAuth();
 
   useEffect(() => {
-    console.log("🧭 Header mounted");
-    console.log("👤 Current user:", user);
+    console.log("Header mounted");
+    console.log("Current user:", user);
   }, [user]);
 
   return (

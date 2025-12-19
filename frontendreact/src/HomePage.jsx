@@ -156,8 +156,8 @@ export default function HomePage({ photos }) {
   ];
 
   useEffect(() => {
-    console.log("🏠 HomePage mounted");
-    console.log("📊 Community photos count:", photos?.length || 0);
+    console.log("HomePage mounted");
+    console.log("Album photos count:", photos?.length || 0);
   }, [photos]);
 
   return (
@@ -224,7 +224,7 @@ export default function HomePage({ photos }) {
               style={{
                 width: "100%",
                 height: "clamp(180px, 40vw, 220px)",
-                objectFit: "cover",
+                objectFit: "contain",
                 borderRadius: 16,
                 boxShadow: "0 10px 30px rgba(236,72,153,0.3)"
               }}

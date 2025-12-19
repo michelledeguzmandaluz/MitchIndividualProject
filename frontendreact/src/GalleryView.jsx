@@ -200,8 +200,8 @@ import { useEffect } from "react";
 
 export default function GalleryView({ photos }) {
   useEffect(() => {
-    console.log("🖼️ GalleryView mounted");
-    console.log("📸 Photos count:", photos?.length || 0);
+    console.log("GalleryView mounted");
+    console.log("Photos count:", photos?.length || 0);
   }, [photos]);
 
   if (!photos || photos.length === 0) {

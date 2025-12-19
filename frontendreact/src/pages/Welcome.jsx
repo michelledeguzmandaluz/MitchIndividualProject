@@ -95,7 +95,7 @@ export default function Welcome() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("🌅 Welcome page loaded");
+    console.log("Welcome page loaded");
   }, []);
 
   return (
