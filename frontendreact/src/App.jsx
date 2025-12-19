@@ -15,13 +15,11 @@
 
 // import { useAuth } from "./context/AuthContext";
 
-// /* 🔐 Protected Route */
 // function ProtectedRoute() {
 //   const { user } = useAuth();
 //   return user ? <Outlet /> : <Navigate to="/" replace />;
 // }
 
-// /* 🧱 Layout */
 // function AppLayout({ user, logout }) {
 //   return (
 //     <>
@@ -75,7 +73,6 @@
 
 //   return (
 //     <Routes>
-//       {/* 🌅 PUBLIC */}
 //       <Route path="/" element={user ? <Navigate to="/home" /> : <Welcome />} />
 //       <Route path="/login" element={user ? <Navigate to="/home" /> : <Login />} />
 //       <Route
@@ -87,7 +84,6 @@
 //         element={user ? <Navigate to="/home" /> : <ResetPassword />}
 //       />
 
-//       {/* 🔐 PROTECTED */}
 //       <Route element={<ProtectedRoute />}>
 //         <Route element={<AppLayout user={user} logout={logout} />}>
 //           <Route
@@ -116,12 +112,10 @@
 //         </Route>
 //       </Route>
 
-//       {/* ❌ FALLBACK */}
 //       <Route path="*" element={<Navigate to="/" replace />} />
 //     </Routes>
 //   );
 // }
-
 
 import { useEffect, useState } from "react";
 import { Routes, Route, Navigate, Outlet } from "react-router-dom";
@@ -140,11 +134,17 @@ import ResetPassword from "./pages/ResetPassword";
 
 import { useAuth } from "./context/AuthContext";
 
+/* =========================
+   Protected Route
+========================= */
 function ProtectedRoute() {
   const { user } = useAuth();
   return user ? <Outlet /> : <Navigate to="/" replace />;
 }
 
+/* =========================
+   Layout
+========================= */
 function AppLayout({ user, logout }) {
   return (
     <>
@@ -155,6 +155,9 @@ function AppLayout({ user, logout }) {
   );
 }
 
+/* =========================
+   App
+========================= */
 export default function App() {
   const { user, logout } = useAuth();
   const isAdmin = true;
@@ -198,17 +201,25 @@ export default function App() {
 
   return (
     <Routes>
-      <Route path="/" element={user ? <Navigate to="/home" /> : <Welcome />} />
-      <Route path="/login" element={user ? <Navigate to="/home" /> : <Login />} />
+      {/* Public */}
+      <Route
+        path="/"
+        element={user ? <Navigate to="/home" replace /> : <Welcome />}
+      />
+      <Route
+        path="/login"
+        element={user ? <Navigate to="/home" replace /> : <Login />}
+      />
       <Route
         path="/register"
-        element={user ? <Navigate to="/home" /> : <Register />}
+        element={user ? <Navigate to="/home" replace /> : <Register />}
       />
       <Route
         path="/reset-password"
-        element={user ? <Navigate to="/home" /> : <ResetPassword />}
+        element={user ? <Navigate to="/home" replace /> : <ResetPassword />}
       />
 
+      {/* Protected */}
       <Route element={<ProtectedRoute />}>
         <Route element={<AppLayout user={user} logout={logout} />}>
           <Route
@@ -237,10 +248,10 @@ export default function App() {
         </Route>
       </Route>
 
+      {/* Fallback */}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 }
-
 
 

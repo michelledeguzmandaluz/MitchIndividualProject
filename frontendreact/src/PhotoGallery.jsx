@@ -13,12 +13,11 @@
 //     message: "",
 //     uploader: "",
 //     anonymous: false,
-//     image: "", // now stores URL, NOT base64
+//     image: "",
 //   });
 
 //   const [showDeleted, setShowDeleted] = useState(false);
 
-//   // ✅ SAFE IMAGE HANDLER (NO BASE64)
 //   function handleImage(e) {
 //     const file = e.target.files[0];
 //     if (!file) return;
@@ -63,7 +62,6 @@
 
 //   return (
 //     <div style={{ padding: "2rem" }}>
-//       {/* 🌸 HEADER */}
 //       <div
 //         className="card"
 //         style={{
@@ -85,7 +83,6 @@
 //         </h2>
 //       </div>
 
-//       {/* 📤 FORM */}
 //       <form
 //         className="card"
 //         style={{ marginBottom: "2rem", padding: 16 }}
@@ -131,7 +128,6 @@
 //         </button>
 //       </form>
 
-//       {/* 🖼️ ACTIVE PHOTOS */}
 //       <div
 //         style={{
 //           display: "grid",
@@ -149,7 +145,7 @@
 //                 style={{
 //                   width: "100%",
 //                   height: 180,
-//                   objectFit: "cover",
+//                   objectFit: "contai",
 //                   borderRadius: 12,
 //                 }}
 //               />
@@ -162,7 +158,6 @@
 //           ))}
 //       </div>
 
-//       {/* 🔘 TOGGLE TRASH */}
 //       {photos.some((p) => p.deleted) && (
 //         <button
 //           onClick={() => setShowDeleted(!showDeleted)}
@@ -180,7 +175,6 @@
 //         </button>
 //       )}
 
-//       {/* 🗑️ DELETED PHOTOS */}
 //       {showDeleted && (
 //         <div
 //           style={{
@@ -200,7 +194,7 @@
 //                   style={{
 //                     width: "100%",
 //                     height: 180,
-//                     objectFit: "cover",
+//                     objectFit: "contain",
 //                     borderRadius: 12,
 //                   }}
 //                 />
@@ -303,12 +297,23 @@ export default function PhotoGallery({
     e.preventDefault();
     if (!form.image || !form.title) return;
 
-    form.id ? updatePhoto(form) : addPhoto(form);
-    resetForm();
+    if (form.id) {
+      if (window.confirm("Do you want to update this photo?")) {
+        updatePhoto(form);
+        resetForm();
+      }
+    } else {
+      if (window.confirm("Do you want to add this photo?")) {
+        addPhoto(form);
+        resetForm();
+      }
+    }
   }
 
   function editPhoto(photo) {
-    setForm(photo);
+    if (window.confirm("Do you want to edit this photo?")) {
+      setForm(photo);
+    }
   }
 
   function resetForm() {
@@ -323,10 +328,24 @@ export default function PhotoGallery({
   }
 
   function restorePhoto(photoId) {
-    updatePhoto({
-      ...photos.find((p) => p.id === photoId),
-      deleted: false,
-    });
+    if (window.confirm("Do you want to restore this photo?")) {
+      updatePhoto({
+        ...photos.find((p) => p.id === photoId),
+        deleted: false,
+      });
+    }
+  }
+
+  function deletePhotoConfirm(photoId) {
+    if (window.confirm("Do you want to delete this photo?")) {
+      deletePhoto(photoId);
+    }
+  }
+
+  function permanentlyDeletePhotoConfirm(photoId) {
+    if (window.confirm("This will permanently delete this photo. Are you sure?")) {
+      permanentlyDeletePhoto(photoId);
+    }
   }
 
   return (
@@ -414,14 +433,14 @@ export default function PhotoGallery({
                 style={{
                   width: "100%",
                   height: 180,
-                  objectFit: "contai",
+                  objectFit: "contain",
                   borderRadius: 12,
                 }}
               />
               <h4 style={{ marginTop: 8 }}>{photo.title}</h4>
               <div style={{ display: "flex", gap: 8, marginTop: 8 }}>
                 <button onClick={() => editPhoto(photo)}>Edit</button>
-                <button onClick={() => deletePhoto(photo.id)}>Delete</button>
+                <button onClick={() => deletePhotoConfirm(photo.id)}>Delete</button>
               </div>
             </div>
           ))}
@@ -485,11 +504,7 @@ export default function PhotoGallery({
                   </button>
 
                   <button
-                    onClick={() => {
-                      if (window.confirm("This will permanently delete this photo.")) {
-                        permanentlyDeletePhoto(photo.id);
-                      }
-                    }}
+                    onClick={() => permanentlyDeletePhotoConfirm(photo.id)}
                     style={{
                       background: "#dc2626",
                       color: "#fff",

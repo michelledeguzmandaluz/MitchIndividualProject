@@ -131,7 +131,7 @@ import { useEffect } from "react";
 
 export default function AboutCreator() {
   useEffect(() => {
-    console.log("👩‍🎨 About Creator page loaded");
+    console.log("About Creator page loaded");
   }, []);
 
   return (
